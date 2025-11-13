@@ -1,0 +1,80 @@
+# Geral
+*.class
+*.log
+*.tmp
+*.swp
+*.DS_Store
+*.orig
+*.bak
+
+# Build Maven
+target/
+*/target/
+**/target/
+
+# Arquivos compilados
+*.jar
+*.war
+*.ear
+
+# Backups do Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+
+# Erros de JVM
+hs_err_pid*
+replay_pid*
+
+# Arquivos do Docker
+.docker/
+docker-compose.override.yml
+docker-compose.override.yaml
+**/.env
+**/.env.*
+**/tmp/
+**/logs/
+**/data/
+**/volumes/
+
+# Pastas do vscode
+.vscode/
+.history/
+dist/
+build/
+
+# Testes
+test-output/
+surefire-reports/
+jacoco.exec
+target/site/
+*/target/site/
+**/target/site/
+
+# Github Actions
+.github/workflows/*.log
+.github/workflows/*.tmp
+
+# Dados sensíveis
+.env
+.env.*
+application-*.yml
+application-*.properties
+secrets.yml
+secrets.properties
+
+
+# Target dos microsserviços 
+api-gateway/target/
+currency-conversion/target/
+currency-exchange/target/
+currency-history/target/
+currency-report/target/
+ES2InformationCollector/target/
+naming-server/target/
+
+# Artefatos temporários de Docker e Compose
+*.pid
+*.tar
+*.bak

@@ -1,0 +1,111 @@
+services:
+  naming-server:
+    build: ./naming-server
+    image: namingserver
+    ports:
+      - "8761:8761"
+    networks:
+      - currency-network
+    deploy:
+      resources:
+        limits:
+          memory: 700m   
+
+  currency-exchange:
+    build: ./currency-exchange
+    image: exchange
+    ports:
+      - "8000:8000"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  currency-conversion:
+    build: ./currency-conversion
+    image: conversion
+    ports:
+      - "8100:8100"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  api-gateway:
+    build: ./api-gateway
+    image: api-gateway
+    ports:
+      - "8765:8765"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  ES2InformationCollector:
+    build: ./ES2InformationCollector
+    image: information
+    ports:
+      - "8082:8082"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  currency-report:
+    build: ./currency-report
+    image: report
+    ports:
+      - "8200:8200"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m 
+
+  currency-history:
+    build: ./currency-history
+    image: history
+    ports:
+      - "8201:8201"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://naming-server:8761/eureka
+    deploy:
+      resources:
+        limits:
+          memory: 700m 
+
+networks:
+  currency-network:
